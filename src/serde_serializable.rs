@@ -1,4 +1,3 @@
-#[cfg(feature = "serde")]
 use macroquad::{
     color::Color,
     math::{
@@ -7,7 +6,11 @@ use macroquad::{
     },
 };
 
-#[cfg(feature = "serde")]
+use serde::{
+    Serialize,
+    Deserialize,
+};
+
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(remote = "Color")]
 pub struct ColorDef {
@@ -21,7 +24,6 @@ pub struct ColorDef {
     pub a: f32,
 }
 
-#[cfg(feature = "serde")]
 impl From<Color> for ColorDef {
     fn from(other: Color) -> Self {
         ColorDef {
@@ -33,7 +35,6 @@ impl From<Color> for ColorDef {
     }
 }
 
-#[cfg(feature = "serde")]
 impl From<ColorDef> for Color {
     fn from(other: ColorDef) -> Self {
         Color {
@@ -45,7 +46,6 @@ impl From<ColorDef> for Color {
     }
 }
 
-#[cfg(feature = "serde")]
 pub mod vec2_def {
     use super::{vec2, Vec2};
     use serde::{
