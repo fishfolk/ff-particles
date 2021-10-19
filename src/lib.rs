@@ -19,7 +19,6 @@ use crate::serde_serializable::{
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "nanoserde", derive(DeJson, SerJson))]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "snake_case_enums", serde(rename_all = "snake_case"))]
 pub enum Interpolation {
     Linear,
     Bezier,
@@ -28,7 +27,6 @@ pub enum Interpolation {
 #[derive(Debug, Clone)]
 #[cfg_attr(feature = "nanoserde", derive(DeJson, SerJson))]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "snake_case_enums", serde(rename_all = "snake_case"))]
 pub struct Curve {
     /// Key points for building a curve
     pub points: Vec<(f32, f32)>,
@@ -94,7 +92,6 @@ impl Default for Curve {
 #[derive(Copy, Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "nanoserde", derive(DeJson, SerJson))]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "snake_case_enums", serde(rename_all = "snake_case"))]
 pub enum EmissionShape {
     Point,
     Rect { width: f32, height: f32 },
@@ -287,7 +284,7 @@ pub struct PostProcessing;
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "nanoserde", derive(DeJson, SerJson))]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "snake_case_enums", serde(rename_all = "snake_case"))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum ParticleShape {
     Rectangle,
     Circle {

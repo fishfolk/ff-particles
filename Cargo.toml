@@ -8,9 +8,6 @@ description = """
 Visual effects editor based on macroquad and megaui.
 """
 
-[features]
-snake_case_enums = ["serde"]
-
 [dependencies]
 macroquad = { version = "0.3.0" }
 nanoserde = { version = "0.1", optional = true }
