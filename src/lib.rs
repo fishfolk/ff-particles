@@ -284,7 +284,6 @@ pub struct PostProcessing;
 #[derive(Clone, PartialEq, Debug)]
 #[cfg_attr(feature = "nanoserde", derive(DeJson, SerJson))]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum ParticleShape {
     Rectangle,
     Circle {
