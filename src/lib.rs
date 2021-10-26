@@ -255,7 +255,7 @@ pub struct EmitterConfig {
     /// will be rendered to the screen.
     /// This will allows some effects affecting particles as a whole.
     /// NOTE: this is not really implemented and now Some will just make hardcoded downscaling
-    #[cfg_attr(feature = "serde", serde(default, with = "post_processing_opt"))]
+    #[cfg_attr(feature = "serde", serde(default, with = "post_processing_opt", skip_serializing_if = "Option::is_none"))]
     pub post_processing: Option<PostProcessing>,
 }
 

@@ -130,6 +130,7 @@ pub mod post_processing_def {
         Deserialize, Deserializer, Serializer,
     };
     use std::fmt;
+    use serde::de::IgnoredAny;
     use serde::ser::SerializeMap;
 
     pub fn serialize<S>(_: &PostProcessing, serializer: S) -> Result<S::Ok, S::Error>
@@ -140,10 +141,11 @@ pub mod post_processing_def {
         state.end()
     }
 
-    pub fn deserialize<'de, D>(_: D) -> Result<PostProcessing, D::Error>
+    pub fn deserialize<'de, D>(deserializer: D) -> Result<PostProcessing, D::Error>
         where
             D: Deserializer<'de>,
     {
+        let _ = IgnoredAny::deserialize(deserializer)?;
         Ok(PostProcessing)
     }
 }
@@ -162,7 +164,10 @@ pub mod post_processing_opt {
         where
             S: Serializer,
     {
-        value.as_ref().map(|_| HashMap::<String, String>::new()).serialize(serializer)
+        #[derive(Serialize)]
+        struct Helper<'a>(#[serde(with = "super::post_processing_def")] &'a PostProcessing);
+
+        value.as_ref().map(Helper).serialize(serializer)
     }
 
     pub fn deserialize<'de, D>(deserializer: D) -> Result<Option<PostProcessing>, D::Error>
@@ -170,7 +175,10 @@ pub mod post_processing_opt {
             D: Deserializer<'de>,
     {
 
-        let helper: Option<HashMap<String, String>> = Option::deserialize(deserializer)?;
-        Ok(helper.map(|_| PostProcessing))
+        #[derive(Deserialize)]
+        struct Helper(#[serde(with = "super::post_processing_def")] PostProcessing);
+
+        let helper = Option::deserialize(deserializer)?;
+        Ok(helper.map(|Helper(external)| external))
     }
 }
