@@ -14,6 +14,7 @@ use serde::{Serialize, Deserialize};
 use crate::serde_serializable::{
     ColorDef,
     vec2_def,
+    post_processing_opt,
 };
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -254,7 +255,7 @@ pub struct EmitterConfig {
     /// will be rendered to the screen.
     /// This will allows some effects affecting particles as a whole.
     /// NOTE: this is not really implemented and now Some will just make hardcoded downscaling
-    #[cfg_attr(feature = "serde", serde(skip, default))]
+    #[cfg_attr(feature = "serde", serde(default, with = "post_processing_opt"))]
     pub post_processing: Option<PostProcessing>,
 }
 

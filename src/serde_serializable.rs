@@ -11,6 +11,8 @@ use serde::{
     Deserialize,
 };
 
+use super::PostProcessing;
+
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(remote = "Color")]
 pub struct ColorDef {
@@ -117,5 +119,58 @@ pub mod vec2_def {
         }
 
         deserializer.deserialize_struct(stringify!(Vec2), &["x", "y"], Vec2Visitor)
+    }
+}
+
+pub mod post_processing_def {
+    use super::PostProcessing;
+    use serde::{
+        de::{self, MapAccess, Visitor},
+        ser::SerializeStruct,
+        Deserialize, Deserializer, Serializer,
+    };
+    use std::fmt;
+    use serde::ser::SerializeMap;
+
+    pub fn serialize<S>(_: &PostProcessing, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: Serializer,
+    {
+        let mut state = serializer.serialize_map(Some(0))?;
+        state.end()
+    }
+
+    pub fn deserialize<'de, D>(_: D) -> Result<PostProcessing, D::Error>
+        where
+            D: Deserializer<'de>,
+    {
+        Ok(PostProcessing)
+    }
+}
+
+pub mod post_processing_opt {
+    use super::PostProcessing;
+    use serde::{de::{self, MapAccess, Visitor}, ser::SerializeStruct, Deserialize, Deserializer, Serializer, Serialize};
+    use std::{
+        collections::HashMap,
+        fmt,
+    };
+
+    use serde::ser::SerializeMap;
+
+    pub fn serialize<S>(value: &Option<PostProcessing>, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: Serializer,
+    {
+        value.as_ref().map(|_| HashMap::<String, String>::new()).serialize(serializer)
+    }
+
+    pub fn deserialize<'de, D>(deserializer: D) -> Result<Option<PostProcessing>, D::Error>
+        where
+            D: Deserializer<'de>,
+    {
+
+        let helper: Option<HashMap<String, String>> = Option::deserialize(deserializer)?;
+        Ok(helper.map(|_| PostProcessing))
     }
 }
