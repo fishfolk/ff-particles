@@ -1,12 +1,15 @@
 [package]
-name = "macroquad-particles"
+name = "macroquad-particles-serde"
 version = "0.1.1"
-authors = ["Fedor Logachev <not.fl3@gmail.com>"]
+authors = ["Fedor Logachev <not.fl3@gmail.com>", "Ole A. Sjo Fasting <oasf@polygo.no>"]
 edition = "2018"
 license = "MIT/Apache-2.0"
 description = """
 Visual effects editor based on macroquad and megaui.
 """
+
+[features]
+default = ["serde"]
 
 [dependencies]
 macroquad = { version = "0.3.0" }
