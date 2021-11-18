@@ -124,12 +124,7 @@ pub mod vec2_def {
 
 pub mod post_processing_def {
     use super::PostProcessing;
-    use serde::{
-        de::{self, MapAccess, Visitor},
-        ser::SerializeStruct,
-        Deserialize, Deserializer, Serializer,
-    };
-    use std::fmt;
+    use serde::{Deserialize, Deserializer, Serializer};
     use serde::de::IgnoredAny;
     use serde::ser::SerializeMap;
 
@@ -137,7 +132,7 @@ pub mod post_processing_def {
         where
             S: Serializer,
     {
-        let mut state = serializer.serialize_map(Some(0))?;
+        let state = serializer.serialize_map(Some(0))?;
         state.end()
     }
 
@@ -152,13 +147,7 @@ pub mod post_processing_def {
 
 pub mod post_processing_opt {
     use super::PostProcessing;
-    use serde::{de::{self, MapAccess, Visitor}, ser::SerializeStruct, Deserialize, Deserializer, Serializer, Serialize};
-    use std::{
-        collections::HashMap,
-        fmt,
-    };
-
-    use serde::ser::SerializeMap;
+    use serde::{Deserialize, Deserializer, Serializer, Serialize};
 
     pub fn serialize<S>(value: &Option<PostProcessing>, serializer: S) -> Result<S::Ok, S::Error>
         where
