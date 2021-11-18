@@ -1,19 +1,17 @@
-# macroquad-particles-serde
+# ff-particles
 
-This is a fork of [macroquad-particles](https://github.com/not-fl3/macroquad/tree/master/particles) that adds serde support
+This is a fork of [macroquad-particles](https://github.com/not-fl3/macroquad/tree/master/particles) that is a result of our requirements for [Fish Fight](https://github.com/fishfight/FishFight). Initially, we just wanted to add serde support, but we have decided to extend it further in the near future. 
 
 ## Usage
 
-Add the following to your `Cargo.toml`:
+To get started, add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-macroquad-particles-serde = "0.1"
+ff-particles = "0.1"
 ```
 
-Serde support is enabled as a default feature. If you, for some reason, want to disable it, add the following, in stead:
+### Crate features
 
-```toml
-[dependencies]
-macroquad-particles-serde = { version = "0.1", default-features = false }
-```
+- `nanoserde` enable support for nanoserde
+- `serde` enable support for serde

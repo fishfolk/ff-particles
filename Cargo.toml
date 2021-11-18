@@ -1,18 +1,14 @@
 [package]
-name = "macroquad-particles-serde"
+name = "ff-particles"
 version = "0.1.1"
 authors = ["Fedor Logachev <not.fl3@gmail.com>", "Ole A. Sjo Fasting <oasf@polygo.no>"]
 edition = "2018"
 license = "MIT/Apache-2.0"
 description = """
-Visual effects editor based on macroquad and megaui.
+Particle system for the Fish Fight project. A fork of macroquad-particles
 """
-
-[features]
-default = ["serde"]
 
 [dependencies]
 macroquad = { version = "0.3" }
 nanoserde = { version = "0.1", optional = true }
-
 serde = { version = "1.0", features = ["derive"], optional = true }
