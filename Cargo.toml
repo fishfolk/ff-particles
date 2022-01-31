@@ -1,6 +1,6 @@
 [package]
 name = "ff-particles"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Fedor Logachev <not.fl3@gmail.com>", "Ole A. Sjo Fasting <oasf@polygo.no>"]
 homepage = "https://github.com/olefasting/ff_particles"
 repository = "https://github.com/olefasting/ff_particles"
