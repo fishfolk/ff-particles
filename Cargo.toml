@@ -1,16 +1,16 @@
 [package]
 name = "ff-particles"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Fedor Logachev <not.fl3@gmail.com>", "Ole A. Sjo Fasting <oasf@polygo.no>"]
-homepage = "https://github.com/olefasting/ff_particles"
-repository = "https://github.com/olefasting/ff_particles"
+homepage = "https://github.com/fishfight/ff-particles"
+repository = "https://github.com/fishfight/ff-particles"
 readme = "README.md"
 edition = "2021"
 license = "MIT/Apache-2.0"
 keywords = ["gamedev", "macroquad", "serde"]
 categories = ["game-development"]
 description = """
-Particle system for the Fish Fight project. A fork of macroquad-particles
+A fork of macroquad-particles with serde support
 """
 
 [dependencies]
