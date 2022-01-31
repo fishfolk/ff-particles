@@ -8,14 +8,10 @@ use macroquad::window::miniquad::*;
 use nanoserde::{DeJson, SerJson};
 
 #[cfg(feature = "serde")]
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[cfg(feature = "serde")]
-use crate::serde_serializable::{
-    ColorDef,
-    vec2_def,
-    post_processing_opt,
-};
+use crate::serde_serializable::{post_processing_opt, vec2_def, ColorDef};
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "nanoserde", derive(DeJson, SerJson))]
@@ -222,7 +218,10 @@ pub struct EmitterConfig {
     /// Each particle will spawned with "size = size - size * rand::gen_range(0.0, size_randomness)".
     pub size_randomness: f32,
     /// If curve is present in each moment of particle lifetime size would be multiplied by the value from the curve
-    #[cfg_attr(feature = "serde", serde(default, skip_serializing_if = "Option::is_none"))]
+    #[cfg_attr(
+        feature = "serde",
+        serde(default, skip_serializing_if = "Option::is_none")
+    )]
     pub size_curve: Option<Curve>,
 
     /// Particles rendering mode.
@@ -243,11 +242,17 @@ pub struct EmitterConfig {
 
     /// For animated texture specify spritesheet layout.
     /// If none the whole texture will be used.
-    #[cfg_attr(feature = "serde", serde(default, skip_serializing_if = "Option::is_none"))]
+    #[cfg_attr(
+        feature = "serde",
+        serde(default, skip_serializing_if = "Option::is_none")
+    )]
     pub atlas: Option<AtlasConfig>,
 
     /// Custom material used to shade each particle.
-    #[cfg_attr(feature = "serde", serde(default, skip_serializing_if = "Option::is_none"))]
+    #[cfg_attr(
+        feature = "serde",
+        serde(default, skip_serializing_if = "Option::is_none")
+    )]
     pub material: Option<ParticleMaterial>,
 
     /// If none particles will be rendered directly to the screen.
@@ -255,7 +260,14 @@ pub struct EmitterConfig {
     /// will be rendered to the screen.
     /// This will allows some effects affecting particles as a whole.
     /// NOTE: this is not really implemented and now Some will just make hardcoded downscaling
-    #[cfg_attr(feature = "serde", serde(default, with = "post_processing_opt", skip_serializing_if = "Option::is_none"))]
+    #[cfg_attr(
+        feature = "serde",
+        serde(
+            default,
+            with = "post_processing_opt",
+            skip_serializing_if = "Option::is_none"
+        )
+    )]
     pub post_processing: Option<PostProcessing>,
 }
 

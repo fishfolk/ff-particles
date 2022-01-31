@@ -1,15 +1,9 @@
 use macroquad::{
     color::Color,
-    math::{
-        Vec2,
-        vec2,
-    },
+    math::{vec2, Vec2},
 };
 
-use serde::{
-    Serialize,
-    Deserialize,
-};
+use serde::{Deserialize, Serialize};
 
 use super::PostProcessing;
 
@@ -58,8 +52,8 @@ pub mod vec2_def {
     use std::fmt;
 
     pub fn serialize<S>(value: &Vec2, serializer: S) -> Result<S::Ok, S::Error>
-        where
-            S: Serializer,
+    where
+        S: Serializer,
     {
         let mut state = serializer.serialize_struct(stringify!(Vec2), 2)?;
         state.serialize_field("x", &value.x)?;
@@ -68,8 +62,8 @@ pub mod vec2_def {
     }
 
     pub fn deserialize<'de, D>(deserializer: D) -> Result<Vec2, D::Error>
-        where
-            D: Deserializer<'de>,
+    where
+        D: Deserializer<'de>,
     {
         #[derive(Deserialize)]
         #[serde(field_identifier, rename_all = "snake_case")]
@@ -88,8 +82,8 @@ pub mod vec2_def {
             }
 
             fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
-                where
-                    A: MapAccess<'de>,
+            where
+                A: MapAccess<'de>,
             {
                 let mut x = None;
                 let mut y = None;
@@ -124,21 +118,21 @@ pub mod vec2_def {
 
 pub mod post_processing_def {
     use super::PostProcessing;
-    use serde::{Deserialize, Deserializer, Serializer};
     use serde::de::IgnoredAny;
     use serde::ser::SerializeMap;
+    use serde::{Deserialize, Deserializer, Serializer};
 
     pub fn serialize<S>(_: &PostProcessing, serializer: S) -> Result<S::Ok, S::Error>
-        where
-            S: Serializer,
+    where
+        S: Serializer,
     {
         let state = serializer.serialize_map(Some(0))?;
         state.end()
     }
 
     pub fn deserialize<'de, D>(deserializer: D) -> Result<PostProcessing, D::Error>
-        where
-            D: Deserializer<'de>,
+    where
+        D: Deserializer<'de>,
     {
         let _ = IgnoredAny::deserialize(deserializer)?;
         Ok(PostProcessing)
@@ -147,11 +141,11 @@ pub mod post_processing_def {
 
 pub mod post_processing_opt {
     use super::PostProcessing;
-    use serde::{Deserialize, Deserializer, Serializer, Serialize};
+    use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
     pub fn serialize<S>(value: &Option<PostProcessing>, serializer: S) -> Result<S::Ok, S::Error>
-        where
-            S: Serializer,
+    where
+        S: Serializer,
     {
         #[derive(Serialize)]
         struct Helper<'a>(#[serde(with = "super::post_processing_def")] &'a PostProcessing);
@@ -160,10 +154,9 @@ pub mod post_processing_opt {
     }
 
     pub fn deserialize<'de, D>(deserializer: D) -> Result<Option<PostProcessing>, D::Error>
-        where
-            D: Deserializer<'de>,
+    where
+        D: Deserializer<'de>,
     {
-
         #[derive(Deserialize)]
         struct Helper(#[serde(with = "super::post_processing_def")] PostProcessing);
 
